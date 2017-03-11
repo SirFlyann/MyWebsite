@@ -2,7 +2,12 @@ require('webpack');
 require('webpack-dev-server');
 var path = require('path');
 module.exports = {
-  entry: './app/App.js',
+  entry: {
+    myWebsite: [
+      'webpack-dev-server/client?http://localhost:8080',
+      './app/App.js'
+    ]
+  },
   output: {
     path: path.resolve(__dirname, 'public/'),
     filename: 'bundle.js'
