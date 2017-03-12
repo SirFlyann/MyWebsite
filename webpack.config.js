@@ -1,6 +1,7 @@
 require('webpack');
 require('webpack-dev-server');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     myWebsite: [
@@ -21,8 +22,23 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node-modules/,
-        loaders: ['react-hot-loader', 'babel-loader']
+        loaders: ['babel-loader']
+      },
+      {
+        test: /\.jsx$/,
+        exclude: /node-modules/,
+        loaders: ['babel-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+           fallback: 'style-loader',
+           use: ['css-loader', 'sass-loader']
+        })
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('style.css')
+  ]
 }
